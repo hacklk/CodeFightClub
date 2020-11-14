@@ -25,34 +25,49 @@ def import_inventory(inventory, filename):
     pass
 
 
-def export_inventory(inventory, filename):
-    pass
+def export_inventory(inventory, filename="export_inventory.csv"):
+    export_list = [supply for supply, amount in inventory.items() for count in range(0, amount)]    #creating export list
+    with open(filename, 'w') as f:                                                                  #writing to file
+        f.write(",".join(export_list))
+''' 
+# Original Version, withouth comprehension was:
+    export_list = []
+    for supply, amount in inventory.items():
+        for count in range(0, amount):
+            exportList.append(supply)
+    with open(filename, 'w') as f:
+        f.write(",".join(export_list))
+'''
 
 # git commit
 # use f: strings where possible
 
 
-game_inventory = {'Star Wars':5, 'ToyStory':7, 'WowG':10, 'Office':8}
-non_inventory = {}
-added_items = ['Star Wars', 'ToyStory', 'HubalaBaba', 'Seventh', 'Star Wars']
-no_exist = ['rubber', 'boy', 'leToy']
+if __name__ == "__main__":
+    game_inventory = {'Star Wars':5, 'ToyStory':7, 'WowG':10, 'Office':8}
+    non_inventory = {}
+    added_items = ['Star Wars', 'ToyStory', 'HubalaBaba', 'Seventh', 'Star Wars']
+    no_exist = ['rubber', 'boy', 'leToy']
 
-print('Game Inventory: ')
-display_inventory(game_inventory)
-print('\nNon Inventory: ')
-display_inventory(non_inventory)
+    print('Game Inventory: ')
+    display_inventory(game_inventory)
+    print('\nNon Inventory: ')
+    display_inventory(non_inventory)
 
-print("\nAdd these items: ", added_items, " to the inventory, so ")
-add_to_inventory(game_inventory, added_items)
-print("Inventory is now ", )
-display_inventory(game_inventory)
+    print("\nAdd these items: ", added_items, " to the inventory, so ")
+    add_to_inventory(game_inventory, added_items)
+    print("Inventory is now ", )
+    display_inventory(game_inventory)
 
-print("\nRemove these items: ", added_items, " from the inventory, so ")
-remove_from_inventory(game_inventory, added_items)
-print("Inventory is now ", )
-display_inventory(game_inventory)
+    print("\nRemove these items: ", added_items, " from the inventory, so ")
+    remove_from_inventory(game_inventory, added_items)
+    print("Inventory is now ", )
+    display_inventory(game_inventory)
 
-print("\nRemove these items: ", no_exist, " from the inventory, so ")
-remove_from_inventory(game_inventory, no_exist)
-print("Inventory is now ", )
-display_inventory(game_inventory)
+    print("\nRemove these items: ", no_exist, " from the inventory, so ")
+    remove_from_inventory(game_inventory, no_exist)
+    print("Inventory is now ", )
+    display_inventory(game_inventory)
+
+    print("\nExporting file: ... ")
+    export_inventory(game_inventory)
