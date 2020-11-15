@@ -21,8 +21,11 @@ def print_table(inventory, order):
     pass
 
 
-def import_inventory(inventory, filename):
-    pass
+def import_inventory(inventory, filename="import_inventory.csv"):
+    with open(filename, mode="r") as csv_file:
+        added_items = csv_file.read().split(',')
+    add_to_inventory(inventory, added_items)
+    #return inventory
 
 
 def export_inventory(inventory, filename="export_inventory.csv"):
@@ -38,10 +41,6 @@ def export_inventory(inventory, filename="export_inventory.csv"):
     with open(filename, 'w') as f:
         f.write(",".join(export_list))
 '''
-
-# git commit
-# use f: strings where possible
-
 
 if __name__ == "__main__":
     game_inventory = {'Star Wars':5, 'ToyStory':7, 'WowG':10, 'Office':8}
@@ -71,3 +70,10 @@ if __name__ == "__main__":
 
     print("\nExporting file: ... ")
     export_inventory(game_inventory)
+    
+    print("\nImporting file: ... ")
+    import_inventory(game_inventory, "export_inventory.csv")
+    display_inventory(game_inventory)
+
+    print("\nCreate a table: from the inventory, so ")
+    print_table(game_inventory, None)    
