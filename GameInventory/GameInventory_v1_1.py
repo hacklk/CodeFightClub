@@ -17,8 +17,34 @@ def remove_from_inventory(inventory, removed_items):        #remove the contents
                                                             #as nothing < 1 stays, will not display deducted items, not in original dict
 
 
-def print_table(inventory, order):
-    pass
+def print_table(inventory, order=None):   # PLEASE make this ne prettier, or maybe lets use Pandas and DataFrames?
+    label_1 = 'count'
+    label_2 = 'item name'
+    # Spacing between each column in table
+    spacing = 3
+    values_spacing = 4
+    # Find the longest string in each column of the table so the column can be wide enough to fit all the values.
+    max_key_length = max(max(len(x) for x in inventory), len(label_1))
+    max_value_length = max(max(len(str(x)) for x in inventory.values()), len(label_2))
+
+    # Sort the inventory depending on which order parameter is passed to function
+    if order == 'count,asc':
+        sorted_inventory = sorted(inventory.items(), key=operator.itemgetter(1))
+    elif order == 'count,desc':
+        sorted_inventory = sorted(inventory.items(), key=operator.itemgetter(1), reverse=True)
+    elif order is None:
+        sorted_inventory = inventory.items()
+    else:
+        raise ValueError("Wrong order argument!")
+
+    # Print the table using rjust - a build-in function which right justifies the values.
+    print('Inventory:')
+    print(label_1.rjust(max_value_length), label_2.rjust(max_key_length + spacing))
+    print('-' * (max_key_length + max_value_length + values_spacing))
+    for k, v in sorted_inventory:
+        print(repr(v).rjust(max_value_length), k.rjust(max_key_length + spacing))
+    print('-' * (max_key_length + max_value_length + values_spacing))
+    print('Total number of items: %d' % sum(inventory.values()))
 
 
 def import_inventory(inventory, filename="import_inventory.csv"):
