@@ -75,5 +75,5 @@ if __name__ == "__main__":
     import_inventory(game_inventory, "export_inventory.csv")
     display_inventory(game_inventory)
 
-    print("\nCreate a table: from the inventory, so ")
-    print_table(game_inventory, None)    
+    #print("\nCreate a table: from the inventory, so ")
+    #print_table(game_inventory, None)    
