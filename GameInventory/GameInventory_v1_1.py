@@ -1,3 +1,5 @@
+import operator
+import pandas as pd
 
 def display_inventory(inventory):               #print any given Dictionary displaying each key, followed by a colon
     for supply, amount in inventory.items():    #then a space, then the corresponding value, then a newline
@@ -21,7 +23,9 @@ def print_table(inventory, order=None):   # PLEASE make this ne prettier, or may
     label_1 = 'count'
     label_2 = 'item name'
     # Spacing between each column in table
-    spacing = 3
+label_1 = 'item name'
+    label_2 = 'count  '
+    # Spacing between each column in table
     values_spacing = 4
     # Find the longest string in each column of the table so the column can be wide enough to fit all the values.
     max_key_length = max(max(len(x) for x in inventory), len(label_1))
@@ -39,19 +43,34 @@ def print_table(inventory, order=None):   # PLEASE make this ne prettier, or may
 
     # Print the table using rjust - a build-in function which right justifies the values.
     print('Inventory:')
-    print(label_1.rjust(max_value_length), label_2.rjust(max_key_length + spacing))
-    print('-' * (max_key_length + max_value_length + values_spacing))
+    print(label_2.rjust(max_value_length  + values_spacing), label_1.rjust(max_key_length))
+    print('  ', '-' * (max_key_length + max_value_length + values_spacing))
     for k, v in sorted_inventory:
-        print(repr(v).rjust(max_value_length), k.rjust(max_key_length + spacing))
-    print('-' * (max_key_length + max_value_length + values_spacing))
+        print(repr(v).rjust(max_value_length), " | ", k.rjust(max_key_length))
+    print('  ', '-' * (max_key_length + max_value_length + values_spacing))
     print('Total number of items: %d' % sum(inventory.values()))
 
+    
+def print_table_df(inventory, order=None):
+    #df = pd.DataFrame.from_dict(game_inventory)
+    df = pd.DataFrame(list(inventory.items()), columns = ['Count', 'Item name'])
+    print(df)
 
+    
 def import_inventory(inventory, filename="import_inventory.csv"):
     with open(filename, mode="r") as csv_file:
         added_items = csv_file.read().split(',')
     add_to_inventory(inventory, added_items)
     #return inventory
+
+  
+''' # Original  
+def import_inventory_csv(inventory, filename="import_inventory.csv"):
+    with open(filename, mode="r") as csv_file:
+        for supply in csv.reader(csv_file, delimiter=','):
+            print(supply)
+
+'''
 
 
 def export_inventory(inventory, filename="export_inventory.csv"):
@@ -101,5 +120,5 @@ if __name__ == "__main__":
     import_inventory(game_inventory, "export_inventory.csv")
     display_inventory(game_inventory)
 
-    #print("\nCreate a table: from the inventory, so ")
-    #print_table(game_inventory, None)    
+    print("\nCreate a df table from inventory: ")
+    print_table_df(game_inventory, None)    
