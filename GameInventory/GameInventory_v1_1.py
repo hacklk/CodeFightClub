@@ -52,7 +52,6 @@ label_1 = 'item name'
 
     
 def print_table_df(inventory, order=None):
-    #df = pd.DataFrame.from_dict(game_inventory)
     df = pd.DataFrame(list(inventory.items()), columns = ['Count', 'Item name'])
     print(df)
 
