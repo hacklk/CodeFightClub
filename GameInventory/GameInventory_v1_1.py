@@ -52,7 +52,8 @@ label_1 = 'item name'
 
     
 def print_table_df(inventory, order=None):
-    df = pd.DataFrame(list(inventory.items()), columns = ['Count', 'Item name'])
+    df = pd.DataFrame(list(inventory.items()), columns=['Item name', 'Count'])
+    df = df.sort_values(by=['Count'], ascending=True)
     print(df)
 
     
