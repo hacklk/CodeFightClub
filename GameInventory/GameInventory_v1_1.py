@@ -23,9 +23,6 @@ def print_table(inventory, order=None):   # PLEASE make this ne prettier, or may
     label_1 = 'count'
     label_2 = 'item name'
     # Spacing between each column in table
-label_1 = 'item name'
-    label_2 = 'count  '
-    # Spacing between each column in table
     values_spacing = 4
     # Find the longest string in each column of the table so the column can be wide enough to fit all the values.
     max_key_length = max(max(len(x) for x in inventory), len(label_1))
@@ -41,6 +38,7 @@ label_1 = 'item name'
     else:
         raise ValueError("Wrong order argument!")
 
+'''
     # Print the table using rjust - a build-in function which right justifies the values.
     print('Inventory:')
     print(label_2.rjust(max_value_length  + values_spacing), label_1.rjust(max_key_length))
@@ -49,7 +47,8 @@ label_1 = 'item name'
         print(repr(v).rjust(max_value_length), " | ", k.rjust(max_key_length))
     print('  ', '-' * (max_key_length + max_value_length + values_spacing))
     print('Total number of items: %d' % sum(inventory.values()))
-
+'''
+   
     
 def print_table_df(inventory, order=None):
     df = pd.DataFrame(list(inventory.items()), columns=['Item name', 'Count'])
